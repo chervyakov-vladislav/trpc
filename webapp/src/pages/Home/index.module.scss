@@ -1,0 +1,13 @@
+@use '../../styles/vars.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.ideas {
+  .idea {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .ideaLink {
+    @include link;
+  }
+}

@@ -5,7 +5,7 @@ import { z } from 'zod'
 const ideas = times(100, (index) => ({
   name: `idea ${index}`,
   nickname: `cool-name ${index}`,
-  desciption: `desc ${index}`,
+  description: `desc ${index}`,
   text: times(50, (j) => `<p>Text paragraph ${j} of idea ${index}</p>`).join(''),
 }))
 
@@ -14,7 +14,7 @@ const trpc = initTRPC.create()
 export const trpcRouter = trpc.router({
   getIdeas: trpc.procedure.query(() => {
     return {
-      ideas: ideas.map((idea) => pick(idea, ['nickname', 'name', 'desciption'])),
+      ideas: ideas.map((idea) => pick(idea, ['nickname', 'name', 'description'])),
     }
   }),
   getIdea: trpc.procedure

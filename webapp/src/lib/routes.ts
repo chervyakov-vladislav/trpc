@@ -9,3 +9,5 @@ export const getViewIdeaRoute = ({ ideaId }: ViewRouteParams) => `/ideas/${ideaI
 
 export const viewRouteParams = getRouteParams({ ideaId: true })
 export type ViewRouteParams = typeof viewRouteParams
+
+export const getNewIdeaRoute = () => '/ideas/new'
