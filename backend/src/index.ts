@@ -7,8 +7,6 @@ const expressApp = express();
 
 expressApp.use(cors());
 
-const x: number = '1';
-
 expressApp.use('/trpc', trpcExpress.createExpressMiddleware({
   router: trpcRouter,
 }))

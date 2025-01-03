@@ -7,7 +7,8 @@
     "web": "pnpm --filter @monorepo/webapp",
     "typecheck": "pnpm -r --parallel typecheck",
     "dev": "pnpm -r --parallel dev",
-    "prettify": "pnpm -r --parallel prettify"
+    "prettify": "pnpm -r --parallel prettify",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/node": "^22.10.3",
