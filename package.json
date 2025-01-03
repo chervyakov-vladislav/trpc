@@ -1,0 +1,21 @@
+{
+  "name": "monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "back": "pnpm --filter @monorepo/backend",
+    "web": "pnpm --filter @monorepo/webapp",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "dev": "pnpm -r --parallel dev",
+    "prettify": "pnpm -r --parallel prettify"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

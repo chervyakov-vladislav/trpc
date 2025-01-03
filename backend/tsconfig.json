@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "inlineSources": true,
+    "isolatedModules": false,
+    "lib": ["ESNext"],
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "target": "ESNext"
+  },
+  "include": ["src"]
+}
