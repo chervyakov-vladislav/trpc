@@ -23,7 +23,7 @@ export const Home = () => {
             <Segment
               size={2}
               title={
-                <Link className={css.ideaLink} to={getViewIdeaRoute({ ideaId: idea.nickname })}>
+                <Link className={css.ideaLink} to={getViewIdeaRoute({ ideaId: idea.nickname ?? '' })}>
                   {idea.name}
                 </Link>
               }
