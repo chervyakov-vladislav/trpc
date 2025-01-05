@@ -13,12 +13,28 @@ import { trpc } from '@/lib/trpc'
 export const NewIdeaPage = () => {
   const [successMessageVisible, setSuccessMessageVisible] = useState(false)
   const [submittingError, setSubmittingError] = useState<string | null>(null)
-  const createIdea = trpc.createIdea.useMutation()
+  const { refetch } = trpc.getIdeas.useQuery(undefined, { enabled: false })
+
+  const createIdea = trpc.createIdea.useMutation({
+    onSuccess: () => {
+      refetch()
+      setSuccessMessageVisible(true)
+      setTimeout(() => {
+        setSuccessMessageVisible(false)
+      }, 3000)
+    },
+    onError: (error) => {
+      setSubmittingError(error.message)
+      setTimeout(() => {
+        setSubmittingError(null)
+      }, 3000)
+    },
+  })
 
   const formik = useFormik({
     initialValues: {
       name: '',
-      nickname: '',
+      nick: '',
       description: '',
       text: '',
     },
@@ -27,10 +43,6 @@ export const NewIdeaPage = () => {
       try {
         await createIdea.mutateAsync(values)
         formik.resetForm()
-        setSuccessMessageVisible(true)
-        setTimeout(() => {
-          setSuccessMessageVisible(false)
-        }, 3000)
       } catch (error: any) {
         setSubmittingError(error.message)
         setTimeout(() => {

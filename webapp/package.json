@@ -15,9 +15,11 @@
   "dependencies": {
     "@monorepo/backend": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-query-devtools": "^4.36.1",
     "@trpc/client": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
     "classnames": "^2.5.1",
+    "date-fns": "^4.1.0",
     "formik": "^2.4.6",
     "formik-validator-zod": "^2.0.1",
     "react": "^18.3.1",
@@ -25,6 +27,7 @@
     "react-router-dom": "6.28.1",
     "reset-css": "^5.0.2",
     "sass": "^1.83.0",
+    "superjson": "^2.2.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {

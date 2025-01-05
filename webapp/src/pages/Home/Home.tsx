@@ -19,11 +19,11 @@ export const Home = () => {
     <Segment title="All Ideas">
       <div className={css.ideas}>
         {data.ideas.map((idea) => (
-          <div className={css.idea} key={idea.nickname}>
+          <div className={css.idea} key={idea.nick}>
             <Segment
               size={2}
               title={
-                <Link className={css.ideaLink} to={getViewIdeaRoute({ ideaId: idea.nickname ?? '' })}>
+                <Link className={css.ideaLink} to={getViewIdeaRoute({ ideaId: idea.nick ?? '' })}>
                   {idea.name}
                 </Link>
               }
