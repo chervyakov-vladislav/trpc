@@ -13,11 +13,11 @@ import { trpc } from '@/lib/trpc'
 export const NewIdeaPage = () => {
   const [successMessageVisible, setSuccessMessageVisible] = useState(false)
   const [submittingError, setSubmittingError] = useState<string | null>(null)
-  const { refetch } = trpc.getIdeas.useQuery(undefined, { enabled: false })
+  const utils = trpc.useUtils()
 
   const createIdea = trpc.createIdea.useMutation({
     onSuccess: () => {
-      refetch()
+      utils.getIdeas.invalidate()
       setSuccessMessageVisible(true)
       setTimeout(() => {
         setSuccessMessageVisible(false)

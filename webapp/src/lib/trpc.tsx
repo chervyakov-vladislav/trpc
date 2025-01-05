@@ -3,6 +3,8 @@ import type { TrpcRouter } from '@monorepo/backend/src/router'
 import { createTRPCReact, httpBatchLink } from '@trpc/react-query'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import Cookies from 'js-cookie'
+import { env } from './env'
 
 export const trpc = createTRPCReact<TrpcRouter>()
 
@@ -22,7 +24,13 @@ const trpcClient = trpc.createClient({
   transformer: superjson,
   links: [
     httpBatchLink({
-      url: 'http://localhost:3000/trpc',
+      url: env.VITE_BACKEND_TRPC_URL,
+      headers: () => {
+        const token = Cookies.get('token')
+        return {
+          ...(token && { authorization: `Bearer ${token}` }),
+        }
+      },
     }),
   ],
 })

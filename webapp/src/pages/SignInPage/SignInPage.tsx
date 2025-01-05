@@ -2,14 +2,19 @@ import { zSignInTrpcInput } from '@monorepo/backend/src/router/signIn/zSignInTrp
 import { useFormik } from 'formik'
 import { withZodSchema } from 'formik-validator-zod'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { FormItems } from '../../components/FormItems'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { trpc } from '../../lib/trpc'
+import { getAllIdeasRoute } from '../../lib/routes'
 
 export const SignInPage = () => {
+  const navigate = useNavigate()
+  const trpcUtils = trpc.useUtils()
   const [successMessageVisible, setSuccessMessageVisible] = useState(false)
   const [submittingError, setSubmittingError] = useState<string | null>(null)
   const signIn = trpc.signIn.useMutation()
@@ -22,7 +27,12 @@ export const SignInPage = () => {
     onSubmit: async (values) => {
       try {
         setSubmittingError(null)
-        await signIn.mutateAsync(values)
+        const { token } = await signIn.mutateAsync(values)
+
+        Cookies.set('token', token, { expires: 1000 * 60 * 15 })
+        void trpcUtils.invalidate()
+        navigate(getAllIdeasRoute())
+
         formik.resetForm()
         setSuccessMessageVisible(true)
         setTimeout(() => {
