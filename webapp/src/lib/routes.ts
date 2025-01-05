@@ -11,3 +11,7 @@ export const viewRouteParams = getRouteParams({ ideaId: true })
 export type ViewRouteParams = typeof viewRouteParams
 
 export const getNewIdeaRoute = () => '/ideas/new'
+
+export const getSignUpRoute = () => '/sign-up'
+
+export const getSignInRoute = () => '/sign-in'
