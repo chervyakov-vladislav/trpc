@@ -5,13 +5,16 @@ const getRouteParams = <T extends Record<string, boolean>>(object: T) => {
 }
 
 export const getAllIdeasRoute = () => '/'
-export const getViewIdeaRoute = ({ ideaId }: ViewRouteParams) => `/ideas/${ideaId}`
+export const getViewIdeaRoute = ({ ideaId }: ViewIdeaRouteParams) => `/ideas/${ideaId}`
 
 export const viewRouteParams = getRouteParams({ ideaId: true })
-export type ViewRouteParams = typeof viewRouteParams
+export type ViewIdeaRouteParams = typeof viewRouteParams
+
+export const editIdeaRouteParams = getRouteParams({ ideaId: true })
+export type EditIdeaRouteParams = typeof viewRouteParams
+export const getEditIdeaRoute = ({ ideaId }: EditIdeaRouteParams) => `/ideas/${ideaId}/edit`
 
 export const getNewIdeaRoute = () => '/ideas/new'
-
 export const getSignUpRoute = () => '/sign-up'
 export const getSignInRoute = () => '/sign-in'
 export const getSignOutRoute = () => '/sign-out'
