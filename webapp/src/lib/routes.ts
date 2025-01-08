@@ -15,6 +15,7 @@ export type EditIdeaRouteParams = typeof viewRouteParams
 export const getEditIdeaRoute = ({ ideaId }: EditIdeaRouteParams) => `/ideas/${ideaId}/edit`
 
 export const getNewIdeaRoute = () => '/ideas/new'
+export const getEditProfileRoute = () => '/edit-profile'
 export const getSignUpRoute = () => '/sign-up'
 export const getSignInRoute = () => '/sign-in'
 export const getSignOutRoute = () => '/sign-out'
