@@ -5,6 +5,7 @@ import { useDebounceValue } from 'usehooks-ts'
 import { trpc } from '@/lib/trpc'
 import { getViewIdeaRoute } from '@/lib/routes'
 import { useForm } from '@/lib/form'
+import { withPageWrapper } from '@/lib/pageWrapper'
 import { layoutContentElRef } from '@/components/Layout'
 import { Segment } from '@/components/Segment'
 import { Alert } from '@/components/Alert'
@@ -12,7 +13,10 @@ import { Loader } from '@/components/Loader'
 import { Input } from '@/components/Input'
 import css from './index.module.scss'
 
-export const Home = () => {
+export const Home = withPageWrapper({
+  title: 'All ideas',
+  isTitleExact: true,
+})(() => {
   const { formik } = useForm({
     initialValues: { search: '' },
     validationSchema: zGetIdeasTrpcInput.pick({ search: true }),
@@ -81,4 +85,4 @@ export const Home = () => {
       )}
     </Segment>
   )
-}
+})

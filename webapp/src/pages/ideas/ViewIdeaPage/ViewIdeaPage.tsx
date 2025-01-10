@@ -6,6 +6,7 @@ import { Alert } from '@/components/Alert'
 import { Button, LinkButton } from '@/components/Button'
 import { FormItems } from '@/components/FormItems'
 import { Segment } from '@/components/Segment'
+import { Icon } from '@/components/Icon'
 import { withPageWrapper } from '@/lib/pageWrapper'
 import { getEditIdeaRoute, type ViewIdeaRouteParams } from '@/lib/routes'
 import { useForm } from '@/lib/form'
@@ -63,7 +64,7 @@ const LikeButton = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['i
         void setIdeaLike.mutateAsync({ ideaId: idea.id, isLikedByMe: !idea.isLikedByMe })
       }}
     >
-      {idea.isLikedByMe ? 'Unlike' : 'Like'}
+      <Icon size={32} className={css.likeIcon} name={idea.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />
     </button>
   )
 }
@@ -80,6 +81,7 @@ export const ViewIdeaPage = withPageWrapper({
     me: ctx.me,
   }),
   showLoaderOnFetching: false,
+  title: ({ idea }) => idea.name,
 })(({ idea, me }) => (
   <Segment title={idea.name} description={idea.description}>
     <div className={css.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div>

@@ -11,6 +11,7 @@ import { withPageWrapper } from '@/lib/pageWrapper'
 
 export const NewIdeaPage = withPageWrapper({
   authorizedOnly: true,
+  title: 'New Idea',
 })(() => {
   const utils = trpc.useUtils()
   const createIdea = trpc.createIdea.useMutation()
