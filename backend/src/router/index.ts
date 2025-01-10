@@ -3,6 +3,7 @@ import { trpc } from '../lib/trpc'
 import { getIdeaTrpcRoute } from './ideas/getIdea'
 import { getIdeasTrpcRoute } from './ideas/getIdeas'
 import { createIdeaTrpcRoute } from './ideas/createIdea'
+import { setIdeaLikeTrpcRoute } from './ideas/setIdeaLike'
 import { signUpTrpcRoute } from './auth/signUp'
 import { signInTrpcRoute } from './auth/signIn'
 import { getMeTrpcRoute } from './auth/getMe'
@@ -17,6 +18,7 @@ export const trpcRouter = trpc.router({
   updatePassword: updatePasswordTrpcRoute,
   updateProfile: updateProfileTrpcRoute,
   createIdea: createIdeaTrpcRoute,
+  setIdeaLike: setIdeaLikeTrpcRoute,
   updateIdea: updateIdeaTrpcRoute,
   getIdea: getIdeaTrpcRoute,
   getIdeas: getIdeasTrpcRoute,

@@ -55,7 +55,9 @@ export const Home = () => {
                       </Link>
                     }
                     description={idea.description}
-                  />
+                  >
+                    Likes: {idea.likesCount}
+                  </Segment>
                 </div>
               ))}
           </InfiniteScroll>
