@@ -1,12 +1,38 @@
+import { canBlockIdeas, canEditIdea } from '@monorepo/backend/src/utils/can'
 import { format } from 'date-fns/format'
 import { useParams } from 'react-router-dom'
 import type { TrpcRouterOutput } from '@monorepo/backend/src/router'
-import { LinkButton } from '@/components/Button'
+import { Alert } from '@/components/Alert'
+import { Button, LinkButton } from '@/components/Button'
+import { FormItems } from '@/components/FormItems'
 import { Segment } from '@/components/Segment'
 import { withPageWrapper } from '@/lib/pageWrapper'
 import { getEditIdeaRoute, type ViewIdeaRouteParams } from '@/lib/routes'
+import { useForm } from '@/lib/form'
 import { trpc } from '@/lib/trpc'
 import css from './index.module.scss'
+
+const BlockIdea = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
+  const blockIdea = trpc.blockIdea.useMutation()
+  const trpcUtils = trpc.useUtils()
+  const { formik, alertProps, buttonProps } = useForm({
+    onSubmit: async () => {
+      await blockIdea.mutateAsync({ ideaId: idea.id })
+      trpcUtils.getIdeas.invalidate()
+      await trpcUtils.getIdea.refetch({ ideaNick: idea.nick })
+    },
+  })
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <FormItems>
+        <Alert {...alertProps} />
+        <Button color="red" {...buttonProps}>
+          Block Idea
+        </Button>
+      </FormItems>
+    </form>
+  )
+}
 
 const LikeButton = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
   const trpcUtils = trpc.useUtils()
@@ -71,6 +97,15 @@ export const ViewIdeaPage = withPageWrapper({
         </>
       )}
     </div>
-    {me?.id === idea.authorId && <div className={css.editButton}>0</div>}
+    {canEditIdea(me, idea) && (
+      <div className={css.editButton}>
+        <LinkButton to={getEditIdeaRoute({ ideaId: idea.nick })}>Edit Idea</LinkButton>
+      </div>
+    )}
+    {canBlockIdeas(me) && (
+      <div className={css.blockIdea}>
+        <BlockIdea idea={idea} />
+      </div>
+    )}
   </Segment>
 ))

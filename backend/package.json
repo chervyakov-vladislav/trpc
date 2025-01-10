@@ -20,7 +20,7 @@
     "schema": "./src/prisma/schema.prisma"
   },
   "dependencies": {
-    "@prisma/client": "^6.2.0",
+    "@prisma/client": "^6.2.1",
     "@trpc/server": "^10.45.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -40,6 +40,6 @@
     "@types/lodash": "^4.17.13",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
-    "prisma": "^6.2.0"
+    "prisma": "^6.2.1"
   }
 }

@@ -1,17 +1,28 @@
+import { zGetIdeasTrpcInput } from '@monorepo/backend/src/router/ideas/getIdeas/zGetIdeasTrpcInput'
 import InfiniteScroll from 'react-infinite-scroller'
-import { trpc } from '@/lib/trpc'
 import { Link } from 'react-router-dom'
+import { useDebounceValue } from 'usehooks-ts'
+import { trpc } from '@/lib/trpc'
 import { getViewIdeaRoute } from '@/lib/routes'
+import { useForm } from '@/lib/form'
 import { layoutContentElRef } from '@/components/Layout'
 import { Segment } from '@/components/Segment'
 import { Alert } from '@/components/Alert'
-import css from './index.module.scss'
 import { Loader } from '@/components/Loader'
+import { Input } from '@/components/Input'
+import css from './index.module.scss'
 
 export const Home = () => {
+  const { formik } = useForm({
+    initialValues: { search: '' },
+    validationSchema: zGetIdeasTrpcInput.pick({ search: true }),
+  })
+  const [search] = useDebounceValue(formik.values.search, 500)
   const { data, error, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage, isRefetching } =
     trpc.getIdeas.useInfiniteQuery(
-      {},
+      {
+        search,
+      },
       {
         getNextPageParam: (lastPage) => {
           return lastPage.nextCursor
@@ -21,10 +32,15 @@ export const Home = () => {
 
   return (
     <Segment title="All Ideas">
+      <div className={css.filter}>
+        <Input maxWidth={'100%'} label="Search" name="search" formik={formik} />
+      </div>
       {isLoading || isRefetching ? (
         <Loader type="section" />
       ) : isError ? (
         <Alert color="red">{error.message}</Alert>
+      ) : !data.pages[0].ideas.length ? (
+        <Alert color="brown">Nothing found by search</Alert>
       ) : (
         <div className={css.ideas}>
           <InfiniteScroll
