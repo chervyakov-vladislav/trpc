@@ -3,6 +3,7 @@ import path from 'path'
 import { type Idea, type User } from '@prisma/client'
 import _ from 'lodash'
 import Handlebars from 'handlebars'
+import { sendEmailThroughBrevo } from './brevo'
 import { env } from './env'
 
 async function findHtmlFiles(directory: string): Promise<string[]> {
@@ -71,13 +72,14 @@ const sendEmail = async ({
     }
 
     const html = await getEmailHtml(templateName, fullTemplateVaraibles)
+    const { loggableResponse } = await sendEmailThroughBrevo({ to, html, subject })
 
     console.info('sendEmail', {
       to,
-      subject,
       templateName,
       fullTemplateVaraibles,
-      html,
+      templateVariables,
+      response: loggableResponse,
     })
     return { ok: true }
   } catch (error) {
