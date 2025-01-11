@@ -1,4 +1,5 @@
 import { trpc } from '../../../lib/trpc'
+import { sendWelcomeEmail } from '../../../lib/emails'
 import { getPasswordHash } from '../../../utils/getPasswordHash'
 import { signJWT } from '../../../utils/signJWT'
 import { zSignUpTrpcInput } from './zSignUpTrpcInput'
@@ -31,6 +32,7 @@ export const signUpTrpcRoute = trpc.procedure.input(zSignUpTrpcInput).mutation(a
     },
   })
 
+  sendWelcomeEmail({ user })
   const token = signJWT(user.id)
   return { token }
 })
